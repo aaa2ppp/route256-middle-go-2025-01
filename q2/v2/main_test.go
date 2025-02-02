@@ -9,7 +9,7 @@ import (
 	"testing"
 )
 
-const dataDir = "../data/even-strings"
+const dataDir = "../data/validate-result"
 
 func Test_run(t *testing.T) {
 	type args struct {
@@ -23,40 +23,60 @@ func Test_run(t *testing.T) {
 	}{
 		{
 			"1",
-			args{strings.NewReader(`7
+			args{strings.NewReader(`9
 3
-ababa
-ababa
-ababa
+a 1
+b 2
+c 3
+a:1,c:3,b:2
 3
-asd
-das
-sda
-2
-abca
-abc
-4
-aaaa
-aaaa
-aaaa
-aaa
-2
-aa
-aa
-2
-a
-a
-2
-a
-b
+a 1
+b 2
+c 2
+c:2,a:1
+3
+a 1
+b 2
+c 2
+b:2,c:2
+3
+a 1
+b 2
+c 2
+a:1,a:1,a:1,a:1
+3
+a 1
+b 2
+c 2
+b:1
+3
+a 1
+b 2
+c 2
+d:4,a:1,c:2
+3
+a 1
+b 2
+c 2
+abcdef
+3
+a 1
+b 2
+c 2
+a:12345678901234567890,c:2
+1
+abc 123
+abc:0123
 `)},
-			`3
-0
-1
-6
-1
-1
-0
+			`YES
+YES
+NO
+NO
+NO
+NO
+NO
+NO
+NO
 `,
 			true,
 		},
@@ -135,16 +155,5 @@ func Test_run2(t *testing.T) {
 		}) {
 			return
 		}
-	}
-}
-
-func Benchmark_run(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		f, err := os.Open(filepath.Join(dataDir, "21"))
-		if err != nil {
-			panic(err)
-		}
-		run(f, io.Discard)
-		f.Close()
 	}
 }

@@ -11,7 +11,7 @@ import (
 	"testing"
 )
 
-const dataDir = "./data/compact-boxes"
+const dataDir = "../data/compact-boxes"
 
 func Test_run(t *testing.T) {
 	type args struct {

@@ -137,3 +137,15 @@ func Test_run2(t *testing.T) {
 		}
 	}
 }
+
+func Benchmark_run(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		f, err := os.Open(filepath.Join(dataDir, "21"))
+		if err != nil {
+			panic(err)
+		}
+		run(f, io.Discard)
+		f.Close()
+	}
+}
+

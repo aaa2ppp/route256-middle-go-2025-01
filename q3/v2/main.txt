@@ -21,18 +21,15 @@ func solve(ss []string) int {
 		o := extractOddChars(s)
 
 		count += even[e]
-		even[e]++
-
-		if o == "" {
-			continue
+		if o != "" {
+			count += odd[o]
+			count -= all[s]
 		}
 
+		even[e]++
 		odd[o]++
-		count += odd[o]
-
 		all[s]++
-		count -= all[s]
-}
+	}
 
 	return count
 }
